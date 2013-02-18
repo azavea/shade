@@ -1,29 +1,23 @@
 var fs = require('fs');
 var path = require('path');
-var test = require('tape');
-var temp = require('temp');
+var test = require('./helpers/tempdirtest');
 var shade = require('../index.js');
 
-test('creates a directory', function (t) {
-    t.plan(3);
-    temp.mkdir('shade-test', function(err, tmpdir){
-        t.error(err, 'temp dir created for the test');
-        var dir = path.join(tmpdir, 'deep', 'shade');
-        shade(dir, function (err, db) {
-            t.error(err, 'shade created without an error');
-            fs.exists(dir, function (exists) {
-                t.ok(exists, 'shade directory exists');
-            });
+test('creates a directory', function (t, tempdir) {
+    t.plan(2);
+    var dbdir = path.join(tempdir, 'deep', 'shade');
+    shade(dbdir, function (err, db) {
+        t.error(err, 'shade created without an error');
+        fs.exists(dbdir, function (exists) {
+            t.ok(exists, 'shade directory exists');
         });
     });
 });
 
-test('returns a db with a path property', function (t) {
+test('returns a db with a path property', function (t, tempdir) {
     t.plan(2);
-    temp.mkdir('shade-test', function(err, dir) {
-        shade(dir, function(err, db) {
-            t.ok(db, 'truthy db passed to callback');
-            t.equals(db.path, dir, 'db.path property matches argument');
-        });
+    shade(tempdir, function(err, db) {
+        t.ok(db, 'truthy db passed to callback');
+        t.equals(db.path, tempdir, 'db.path property matches argument');
     });
 });
