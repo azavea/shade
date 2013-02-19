@@ -42,7 +42,7 @@ Creates a new data store rooted in the specified directory. ``cb(err, db)`` is c
 
 ### db.save(s, cb)
 
-Saves a string ``s`` into the data store. ``cb(err, key)`` is called with wither an error or the 8-character key that can be used to retireve the data from the ``load`` method.
+Saves a string ``s`` into the data store. ``cb(err, key)`` is called with either an error or the 8-character key that can be used to retrieve the data from the ``load`` method.
 
 ### db.load(key, cb)
 
