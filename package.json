@@ -1,6 +1,6 @@
 {
     "name" : "shade",
-    "version" : "0.1.0",
+    "version" : "0.1.1",
     "description" : "a file system data store using SHA1 keys",
     "main" : "./index.js",
     "keywords" : [
